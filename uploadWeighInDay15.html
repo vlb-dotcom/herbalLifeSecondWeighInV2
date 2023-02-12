@@ -1,0 +1,1503 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Weigh In | Herbal Life Marathon Journey</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://firebasestorage.googleapis.com/v0/b/chatbuddy-herballife.appspot.com/o/herbalLifeLogo%2FA.png?alt=media&token=2b3e71d8-ad44-41b5-9615-39f9f9b220e4"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+  </head>
+  <style>
+    .input-code-main {
+      margin-bottom: 1em;
+    }
+
+    #input-code {
+      padding: 0.3em;
+    }
+
+    #app {
+      border-radius: 5px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+      margin-top: 2em;
+      padding: 2em;
+      padding-top: 2em;
+      width: 34em;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: center;
+      text-align: center;
+    }
+
+    .preview {
+      margin-top: 1em;
+      width: fit-content;
+      height: fit-content;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+    #file-ip-1-preview {
+      width: 100%;
+      height: 100%;
+    }
+
+    #file-ip-1-previewPHOTO-FRONT,
+    #file-ip-1-previewPHOTO-LEFT,
+    #file-ip-1-previewPHOTO-RIGHT {
+      width: 50%;
+      height: 50%;
+      margin-bottom: 1em !important;
+      border-radius: 5px;
+      margin: 0 auto;
+    }
+
+    #file-ip-1 {
+      margin-top: 1em;
+    }
+
+    #upload-form {
+      width: 30em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #upload-btn {
+      margin-top: 1em;
+      width: 15em;
+      height: 3em;
+    }
+
+    #herbal-logo {
+      width: 10em;
+    }
+
+    .logo-div {
+      margin-top: 1em;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #note-imp {
+      font-size: 0.8rem;
+      font-style: italic;
+      opacity: 0.7;
+      width: 70%;
+    }
+
+    .hidden {
+      display: none;
+      visibility: hidden;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    .fa-circle-check {
+      font-size: 10em;
+      color: #33ff3c;
+      margin-top: 0.2em;
+    }
+
+    .succ-text-p {
+      margin-top: 1em;
+      font-size: 1.8rem;
+    }
+
+    .sent-success-main {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+
+    .succ-text-div {
+      text-align: center;
+      width: 80%;
+    }
+
+    .spinner-loadingStatus {
+      margin-top: 1em;
+    }
+
+    #videoPrev {
+      margin-top: 1em;
+      border-radius: 5px;
+    }
+
+    .weightVideoContainer {
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      padding: 0.5em;
+      border-radius: 5px;
+    }
+
+    .weightPhotoContainer {
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      padding: 0.5em;
+      border-radius: 5px;
+    }
+
+    .weightPhotoContainer {
+      width: 30em;
+      margin-bottom: 1em;
+    }
+
+    #pRecordInstruction {
+      font-size: 0.8rem;
+      text-align: left;
+    }
+
+    .spanInstr {
+      font-weight: bold;
+    }
+
+    .fa-weight-scale {
+      margin-right: 0.4em;
+    }
+
+    .labelViewText {
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-bottom: 0.2em;
+      text-align: left;
+      width: 100%;
+    }
+
+    /* @keyframes spinner-border {
+      to { transform: rotate(360deg); }
+    } 
+    .spinner-border{
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        vertical-align: text-bottom;
+        border: .25em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border .75s linear infinite;
+    }
+    .spinner-border-sm{
+        height: 1rem;
+        border-width: .2em;
+    } */
+  </style>
+
+  <body>
+    <div class="logo-div">
+      <h2>Herbal Life Marathon Second Weigh-In</h2>
+      <img
+        id="herbal-logo"
+        src="https://firebasestorage.googleapis.com/v0/b/chatbuddy-herballife.appspot.com/o/imageStorage%2FHerbalife-Logo.png?alt=media&token=aabff125-8ed8-4fe1-91b4-9832372c780d"
+      />
+    </div>
+
+    <div class="visible" id="app">
+      <form id="upload-form">
+        <div class="input-code-main input-group flex-nowrap">
+          <span class="input-group-text"
+            ><i class="fa-solid fa-weight-scale"></i> Weight (kg)</span
+          >
+          <input
+            aria-label="With textarea"
+            class="form-control"
+            id="input-code-weight"
+            type="number"
+            required
+          />
+        </div>
+        <p id="note-imp">Please upload your <strong>weigh-in proof.</strong></p>
+        <!-- PHOTO UPLOAD -->
+        <div class="weightPhotoContainer">
+          <p id="pRecordInstruction">
+            <span class="spanInstr"
+              ><i class="fa-solid fa-circle-info"></i> Instruction:</span
+            >
+            Take photos of various angles, specifically your body's front, left,
+            and right sides, and then use the button below to upload them.
+            <br /><br /><strong
+              >*Please note to upload them by category using the options
+              below.</strong
+            >
+          </p>
+          <div class="divInputUpload">
+            <label class="labelViewText"
+              ><i class="fa-solid fa-circle"></i> Front Body View:</label
+            >
+            <input
+              class="form-control"
+              type="file"
+              id="file-ip-1PHOTO-FRONT"
+              name="fileSelfie"
+              accept="image/png, image/jpeg, image/jpg"
+              onchange="showPreviewBodyFRONT()"
+              required
+            />
+            <div class="preview">
+              <img id="file-ip-1-previewPHOTO-FRONT" />
+            </div>
+          </div>
+          <div class="divInputUpload">
+            <label class="labelViewText"
+              ><i class="fa-solid fa-circle"></i> Left Side Body View:</label
+            >
+            <input
+              class="form-control"
+              type="file"
+              id="file-ip-1PHOTO-LEFT"
+              name="fileSelfie"
+              accept="image/png, image/jpeg, image/jpg"
+              onchange="showPreviewBodyLEFT()"
+              required
+            />
+            <div class="preview">
+              <img id="file-ip-1-previewPHOTO-LEFT" />
+            </div>
+          </div>
+          <div class="divInputUpload">
+            <label class="labelViewText"
+              ><i class="fa-solid fa-circle"></i> Right Side Body View:</label
+            >
+            <input
+              class="form-control"
+              type="file"
+              id="file-ip-1PHOTO-RIGHT"
+              name="fileSelfie"
+              accept="image/png, image/jpeg, image/jpg"
+              onchange="showPreviewBodyRIGHT()"
+              required
+            />
+            <div class="preview">
+              <img id="file-ip-1-previewPHOTO-RIGHT" />
+            </div>
+          </div>
+        </div>
+        <!-- VIDEO UPLOAD -->
+        <div class="weightVideoContainer">
+          <p id="pRecordInstruction">
+            <span class="spanInstr"
+              ><i class="fa-solid fa-circle-info"></i> Instruction:</span
+            >
+            Record yourself using the weighing scale on video and use the button
+            below to upload it.
+          </p>
+          <input
+            class="form-control uploadVideoInput"
+            type="file"
+            id="file-ip-1"
+            name="file[]"
+            accept="video/mp4,video/x-m4v,video/*"
+            onchange="showPreviewVideo()"
+            required
+          />
+          <video id="videoPrev" width="300" controls>
+            <source id="video_here" />
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="preview">
+            <img id="file-ip-1-preview" />
+          </div>
+        </div>
+        <input
+          class="btn btn-primary"
+          id="upload-btn"
+          type="submit"
+          value="Submit Weigh-In"
+        />
+
+        <div class="spinner-loadingStatus hidden">
+          <div id="spinner" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p id="sending-text">Sending....</p>
+        </div>
+      </form>
+    </div>
+
+    <div class="sent-success-main hidden">
+      <div class="success-div">
+        <i class="fa-solid fa-circle-check"></i>
+        <p class="succ-text-p">SUCCESS</p>
+      </div>
+      <div class="succ-text-div">
+        We received your HerbalLife Marathon Weigh-In Proof! Thank you so much!
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script>
+      function showPreviewBodyFRONT() {
+        if (event.target.files.length > 0) {
+          let fileName = event.target.files[0].name;
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+          if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+            //TO DO
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById(
+              "file-ip-1-previewPHOTO-FRONT"
+            );
+            preview.src = src;
+            preview.style.display = "block";
+          } else {
+            alert("Only jpg/jpeg and png files are allowed!");
+            var preview = document.getElementById("file-ip-1PHOTO-FRONT");
+            preview.value = "";
+          }
+        }
+      }
+
+      function showPreviewBodyLEFT() {
+        if (event.target.files.length > 0) {
+          let fileName = event.target.files[0].name;
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+          if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+            //TO DO
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById(
+              "file-ip-1-previewPHOTO-LEFT"
+            );
+            preview.src = src;
+            preview.style.display = "block";
+          } else {
+            alert("Only jpg/jpeg and png files are allowed!");
+            var preview = document.getElementById("file-ip-1PHOTO-LEFT");
+            preview.value = "";
+          }
+        }
+      }
+
+      function showPreviewBodyRIGHT() {
+        if (event.target.files.length > 0) {
+          let fileName = event.target.files[0].name;
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+          if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+            //TO DO
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById(
+              "file-ip-1-previewPHOTO-RIGHT"
+            );
+            preview.src = src;
+            preview.style.display = "block";
+          } else {
+            alert("Only jpg/jpeg and png files are allowed!");
+            var preview = document.getElementById("file-ip-1PHOTO-RIGHT");
+            preview.value = "";
+          }
+        }
+      }
+
+      function showPreviewVideo() {
+        $(document).on("change", ".uploadVideoInput", function (evt) {
+          var $source = $("#video_here");
+          $source[0].src = URL.createObjectURL(this.files[0]);
+          $source.parent()[0].load();
+        });
+
+        let uploadVid = document.querySelector(".uploadVideoInput");
+        console.log(uploadVid.files[0].size);
+        if (uploadVid.files[0].size > 0) {
+          let fileName = uploadVid.files[0].name;
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+          if (
+            extFile == "mp4" ||
+            extFile == "webm" ||
+            extFile == "avi" ||
+            extFile == "x-m4v"
+          ) {
+            //TO DO
+            var src = URL.createObjectURL(uploadVid.files[0]);
+            console.log(src);
+            var preview = document.getElementById("video_here");
+            preview.src = src;
+            preview.style.display = "block";
+          } else {
+            alert("Only video formats are allowed!");
+            uploadVid.value = "";
+            var preview = document.getElementById("video_here");
+            preview.value = "";
+            preview.src = "";
+          }
+        }
+      }
+
+      function showPreview() {
+        if (event.target.files.length > 0) {
+          let fileName = event.target.files[0].name;
+          var idxDot = fileName.lastIndexOf(".") + 1;
+          var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+          if (
+            extFile == "mp4" ||
+            extFile == "webm" ||
+            extFile == "avi" ||
+            extFile == "x-m4v"
+          ) {
+            //TO DO
+            var src = URL.createObjectURL(event.target.files[0]);
+            console.log(src);
+            var preview = document.getElementById("video_here");
+            preview.src = src;
+            preview.style.display = "block";
+          } else {
+            alert("Only video formats are allowed!");
+            var preview = document.getElementById("video_here");
+            preview.value = "";
+          }
+        }
+      }
+    </script>
+
+    <script type="module">
+      const queryString = window.location.search;
+      // console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      // console.log(queryString);
+
+      const userCode = urlParams.get("uCode");
+      console.log(userCode);
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+      import {
+        getStorage,
+        ref as sRef,
+        uploadBytesResumable,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-storage.js";
+      import {
+        getDatabase,
+        ref as dbRef,
+        push,
+        remove,
+        set,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAlLHnd4p09n2xLp6u4Lw8h8Z8VH8u6L7c",
+        authDomain: "chatbuddy-herballife.firebaseapp.com",
+        projectId: "chatbuddy-herballife",
+        storageBucket: "chatbuddy-herballife.appspot.com",
+        messagingSenderId: "139194338154",
+        appId: "1:139194338154:web:65fa193c8cfc7951a9b313",
+        measurementId: "G-MFZ0E01QE1",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      // Get a reference to the storage service, which is used to create references in your storage bucket
+      const storage = getStorage(app);
+
+      const database = getDatabase();
+      const databaseReference = dbRef(database, "secondWeighIn");
+
+      const databaseReferenceFrontBODY = dbRef(
+        database,
+        "challengerFrontBodyViewSecond"
+      );
+      const databaseReferenceLeftBODY = dbRef(
+        database,
+        "challengerLeftBodyViewSecond"
+      );
+      const databaseReferenceRightBODY = dbRef(
+        database,
+        "challengerRightBodyViewSecond"
+      );
+
+      var vueApp = new Vue({
+        el: "#app",
+        data: {
+          files: [],
+        },
+      });
+
+      var generatedUniqueID = "";
+      function makeid() {
+        var result = "";
+        var characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var charactersLength = characters.length;
+
+        for (var i = 0; i < 15; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+
+        generatedUniqueID = userCode;
+        console.log(generatedUniqueID);
+        return result;
+      }
+
+      // PROCESS VALUE FOR RIGHT IMAGE UPLOADED
+      async function processValueUploadRightIMAGE() {
+        onValue(databaseReferenceRightBODY, function (snapshot) {
+          let imageURL = "";
+          let uniqueIDValue = "";
+          let counterVal = 0;
+          console.log(snapshot);
+          snapshot.forEach(function (childSnapshot) {
+            // const itemKey = childSnapshot.key();
+            const value = childSnapshot.val();
+            console.log("DATA VALUE");
+            console.log(childSnapshot.key);
+            const childKey = childSnapshot.key;
+            // console.log(itemKey);
+            console.log(value);
+
+            //const storageRefDownload = sRef(storage, "proofOfBilling/" + value.name);
+            const storageRefDownload = sRef(
+              storage,
+              "challengerRightBodyViewSecond/" + value.name
+            );
+            getDownloadURL(storageRefDownload).then(function (url) {
+              console.log("Image Link: " + url);
+              console.log("userCode: " + value.userCode);
+              // vueApp.files.push({
+              //     "id": childSnapshot.key,
+              //     "name": value.name,
+              //     "url": url
+              // });
+
+              imageURL = url;
+              uniqueIDValue = value.userNs;
+
+              let data = {
+                url: url,
+                userNs: uniqueIDValue,
+                notifType: "rightBodyImage",
+              };
+
+              console.log(data);
+
+              counterVal++;
+              console.log(uniqueIDValue);
+              console.log(snapshot.size);
+              // SET HERE YOUR POST WEBHOOK FUNCTION
+              if (
+                imageURL.length != 0 &&
+                uniqueIDValue.includes(userCode) &&
+                value.category.includes("rightBodyImage")
+              ) {
+                console.log("Checking user...");
+                let getChallengerByID =
+                  "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+                  userCode;
+
+                $.ajax({
+                  url: getChallengerByID,
+                  type: "GET",
+                  dataType: "json", // added data type
+                  crossDomain: true,
+                  async: false,
+                  format: "json",
+                  success: function (res) {
+                    console.log(res);
+
+                    const db = getDatabase();
+                    console.log("challengerRightBodyViewSecond/" + childKey);
+                    // create DatabaseReference
+                    const dbRefA = dbRef(
+                      db,
+                      "/challengerRightBodyViewSecond/" + childKey
+                    );
+
+                    remove(dbRefA).then(() => {
+                      console.log("Deleted");
+                      updateRightBodyViewLink(data);
+
+                      counterVal = 0;
+                    });
+
+                    // if (res.data.firstWeighIn.includes("Waiting")) {
+                    //   console.log("Send notification to user");
+                    //   updateProofOfWeighIn(data);
+
+                    //   counterVal = 0;
+                    // }
+                  },
+                });
+              } else {
+                console.log(userCode);
+                console.log(value.category);
+                console.log(url);
+              }
+            });
+          });
+        });
+      }
+
+      // PROCESS VALUE FOR LEFT IMAGE UPLOADED
+      async function processValueUploadLeftIMAGE() {
+        onValue(databaseReferenceLeftBODY, function (snapshot) {
+          let imageURL = "";
+          let uniqueIDValue = "";
+          let counterVal = 0;
+          console.log(snapshot);
+          snapshot.forEach(function (childSnapshot) {
+            // const itemKey = childSnapshot.key();
+            const value = childSnapshot.val();
+            console.log("DATA VALUE");
+            console.log(childSnapshot.key);
+            const childKey = childSnapshot.key;
+            // console.log(itemKey);
+            console.log(value);
+
+            //const storageRefDownload = sRef(storage, "proofOfBilling/" + value.name);
+            const storageRefDownload = sRef(
+              storage,
+              "challengerLeftBodyViewSecond/" + value.name
+            );
+            getDownloadURL(storageRefDownload).then(function (url) {
+              console.log("Image Link: " + url);
+              console.log("userCode: " + value.userCode);
+              // vueApp.files.push({
+              //     "id": childSnapshot.key,
+              //     "name": value.name,
+              //     "url": url
+              // });
+
+              imageURL = url;
+              uniqueIDValue = value.userNs;
+
+              let data = {
+                url: url,
+                userNs: uniqueIDValue,
+                notifType: "leftBodyImage",
+              };
+
+              console.log(data);
+
+              counterVal++;
+              console.log(uniqueIDValue);
+              console.log(snapshot.size);
+              // SET HERE YOUR POST WEBHOOK FUNCTION
+              if (
+                imageURL.length != 0 &&
+                uniqueIDValue.includes(userCode) &&
+                value.category.includes("leftBodyImage")
+              ) {
+                console.log("Checking user...");
+                let getChallengerByID =
+                  "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+                  userCode;
+
+                $.ajax({
+                  url: getChallengerByID,
+                  type: "GET",
+                  dataType: "json", // added data type
+                  crossDomain: true,
+                  async: false,
+                  format: "json",
+                  success: function (res) {
+                    console.log(res);
+
+                    const db = getDatabase();
+                    console.log("challengerLeftBodyViewSecond/" + childKey);
+                    // create DatabaseReference
+                    const dbRefA = dbRef(
+                      db,
+                      "/challengerLeftBodyViewSecond/" + childKey
+                    );
+
+                    remove(dbRefA).then(() => {
+                      console.log("Deleted");
+                      updateLeftBodyViewLink(data);
+
+                      counterVal = 0;
+                    });
+
+                    // if (res.data.firstWeighIn.includes("Waiting")) {
+                    //   console.log("Send notification to user");
+                    //   updateProofOfWeighIn(data);
+
+                    //   counterVal = 0;
+                    // }
+                  },
+                });
+              } else {
+                console.log(userCode);
+                console.log(value.category);
+                console.log(url);
+              }
+            });
+          });
+        });
+      }
+
+      // PROCESS VALUE FOR FRONT IMAGE UPLOADED
+      async function processValueUploadFrontIMAGE() {
+        onValue(databaseReferenceFrontBODY, function (snapshot) {
+          let imageURL = "";
+          let uniqueIDValue = "";
+          let counterVal = 0;
+          console.log(snapshot);
+          snapshot.forEach(function (childSnapshot) {
+            // const itemKey = childSnapshot.key();
+            const value = childSnapshot.val();
+            console.log("DATA VALUE");
+            console.log(childSnapshot.key);
+            const childKey = childSnapshot.key;
+            // console.log(itemKey);
+            console.log(value);
+
+            //const storageRefDownload = sRef(storage, "proofOfBilling/" + value.name);
+            const storageRefDownload = sRef(
+              storage,
+              "challengerFrontBodyViewSecond/" + value.name
+            );
+            getDownloadURL(storageRefDownload).then(function (url) {
+              console.log("Image Link: " + url);
+              console.log("userCode: " + value.userCode);
+              // vueApp.files.push({
+              //     "id": childSnapshot.key,
+              //     "name": value.name,
+              //     "url": url
+              // });
+
+              imageURL = url;
+              uniqueIDValue = value.userNs;
+
+              let data = {
+                url: url,
+                userNs: uniqueIDValue,
+                notifType: "weighInUpload",
+              };
+
+              console.log(data);
+
+              counterVal++;
+              console.log(uniqueIDValue);
+              console.log(snapshot.size);
+              // SET HERE YOUR POST WEBHOOK FUNCTION
+              if (
+                imageURL.length != 0 &&
+                uniqueIDValue.includes(userCode) &&
+                value.category.includes("frontBodyImage")
+              ) {
+                console.log("Checking user...");
+                let getChallengerByID =
+                  "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+                  userCode;
+
+                $.ajax({
+                  url: getChallengerByID,
+                  type: "GET",
+                  dataType: "json", // added data type
+                  crossDomain: true,
+                  async: false,
+                  format: "json",
+                  success: function (res) {
+                    console.log(res);
+
+                    const db = getDatabase();
+                    console.log("challengerFrontBodyViewSecond/" + childKey);
+                    // create DatabaseReference
+                    const dbRefA = dbRef(
+                      db,
+                      "/challengerFrontBodyViewSecond/" + childKey
+                    );
+
+                    remove(dbRefA).then(() => {
+                      console.log("Deleted");
+                      updateFrontBodyViewLink(data);
+
+                      counterVal = 0;
+                    });
+
+                    // if (res.data.firstWeighIn.includes("Waiting")) {
+                    //   console.log("Send notification to user");
+                    //   updateProofOfWeighIn(data);
+
+                    //   counterVal = 0;
+                    // }
+                  },
+                });
+              } else {
+                console.log(userCode);
+                console.log(value.category);
+                console.log(url);
+              }
+            });
+          });
+        });
+      }
+
+      makeid();
+      // PROCESS VALUE FOR VIDEO UPLOADED
+      async function processValueUpload() {
+        onValue(databaseReference, function (snapshot) {
+          let imageURL = "";
+          let uniqueIDValue = "";
+          let counterVal = 0;
+          console.log(snapshot);
+          snapshot.forEach(function (childSnapshot) {
+            // const itemKey = childSnapshot.key();
+            const value = childSnapshot.val();
+            console.log("DATA VALUE");
+            console.log(childSnapshot.key);
+            const childKey = childSnapshot.key;
+            // console.log(itemKey);
+            console.log(value);
+
+            //const storageRefDownload = sRef(storage, "proofOfBilling/" + value.name);
+            const storageRefDownload = sRef(
+              storage,
+              "secondWeighIn/" + value.name
+            );
+            getDownloadURL(storageRefDownload).then(function (url) {
+              console.log("Image Link: " + url);
+              console.log("userCode: " + value.userCode);
+              // vueApp.files.push({
+              //     "id": childSnapshot.key,
+              //     "name": value.name,
+              //     "url": url
+              // });
+
+              imageURL = url;
+              uniqueIDValue = value.userNs;
+
+              let data = {
+                url: url,
+                userNs: uniqueIDValue,
+                notifType: "weighInUpload",
+              };
+
+              console.log(data);
+
+              counterVal++;
+              console.log(uniqueIDValue);
+              console.log(snapshot.size);
+              // SET HERE YOUR POST WEBHOOK FUNCTION
+              if (
+                imageURL.length != 0 &&
+                uniqueIDValue.includes(userCode) &&
+                value.category.includes("weighInProof")
+              ) {
+                console.log("Checking user...");
+                let getChallengerByID =
+                  "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+                  userCode;
+
+                $.ajax({
+                  url: getChallengerByID,
+                  type: "GET",
+                  dataType: "json", // added data type
+                  crossDomain: true,
+                  async: false,
+                  format: "json",
+                  success: function (res) {
+                    console.log(res);
+
+                    const db = getDatabase();
+                    console.log("secondWeighIn/" + childKey);
+                    // create DatabaseReference
+                    const dbRefA = dbRef(db, "/secondWeighIn/" + childKey);
+
+                    remove(dbRefA).then(() => {
+                      console.log("Deleted");
+                      updateProofOfWeighIn(data);
+
+                      counterVal = 0;
+                    });
+
+                    // if (res.data.firstWeighIn.includes("Waiting")) {
+                    //   console.log("Send notification to user");
+                    //   updateProofOfWeighIn(data);
+
+                    //   counterVal = 0;
+                    // }
+                  },
+                });
+              } else {
+                console.log(userCode);
+                console.log(value.category);
+                console.log(url);
+              }
+            });
+          });
+        });
+      }
+
+      window.addEventListener("load", function () {
+        document
+          .getElementById("upload-form")
+          .addEventListener("submit", function () {
+            event.preventDefault();
+
+            processValueUpload();
+
+            let spinnerDiv = document.querySelector(".spinner-loadingStatus");
+            spinnerDiv.classList.add("visible");
+
+            let sendBtn = document.getElementById("upload-btn");
+            sendBtn.disabled = true;
+
+            let vidFile = document.getElementById("file-ip-1");
+
+            let frontImageFile = document.getElementById(
+              "file-ip-1PHOTO-FRONT"
+            );
+            let leftImageFile = document.getElementById("file-ip-1PHOTO-LEFT");
+            let rightImageFile = document.getElementById(
+              "file-ip-1PHOTO-RIGHT"
+            );
+
+            var form = event.target;
+
+            // file.files[0]
+            // ----------------------------------- UPLOAD VID FILE -----------------------
+
+            var file = vidFile.files[0];
+            console.log(file);
+
+            var fileFrontImg = frontImageFile.files[0];
+            var fileLeftImg = leftImageFile.files[0];
+            var fileRightImg = rightImageFile.files[0];
+
+            const storageRef = sRef(storage, "secondWeighIn/" + file.name);
+
+            const storageRefFrontImage = sRef(
+              storage,
+              "challengerFrontBodyViewSecond/" + fileFrontImg.name
+            );
+            const storageRefLeftImage = sRef(
+              storage,
+              "challengerLeftBodyViewSecond/" + fileLeftImg.name
+            );
+            const storageRefRightImage = sRef(
+              storage,
+              "challengerRightBodyViewSecond/" + fileRightImg.name
+            );
+
+            let getChallengerByID =
+              "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+              userCode;
+
+            // $.ajax({
+            //   url: getChallengerByID,
+            //   type: "GET",
+            //   dataType: "json", // added data type
+            //   crossDomain: true,
+            //   async: false,
+            //   format: "json",
+            //   success: function (res) {
+            //     console.log(res);
+
+            // if (res.data.firstWeighIn.includes("Waiting")) {
+            console.log("UPLOADING Video File...");
+            uploadBytesResumable(storageRef, file).then(function (snapshot) {
+              var newFileRef = push(databaseReference);
+              set(newFileRef, {
+                name: file.name,
+                userNs: userCode,
+                category: "weighInProof",
+              });
+            });
+
+            console.log("UPLOADING FRONT BODY IMAGE File...");
+            uploadBytesResumable(storageRefFrontImage, fileFrontImg).then(
+              function (snapshot) {
+                var newFileRef = push(databaseReferenceFrontBODY);
+                set(newFileRef, {
+                  name: fileFrontImg.name,
+                  userNs: userCode,
+                  category: "frontBodyImage",
+                });
+              }
+            );
+
+            console.log("UPLOADING LEFT BODY IMAGE File...");
+            uploadBytesResumable(storageRefLeftImage, fileLeftImg).then(
+              function (snapshot) {
+                var newFileRef = push(databaseReferenceLeftBODY);
+
+                set(newFileRef, {
+                  name: fileLeftImg.name,
+                  userNs: userCode,
+                  category: "leftBodyImage",
+                });
+              }
+            );
+
+            console.log("UPLOADING RIGHT BODY IMAGE File...");
+            uploadBytesResumable(storageRefRightImage, fileRightImg).then(
+              function (snapshot) {
+                var newFileRef = push(databaseReferenceRightBODY);
+
+                set(newFileRef, {
+                  name: fileRightImg.name,
+                  userNs: userCode,
+                  category: "rightBodyImage",
+                });
+              }
+            );
+            // } else {
+            //   console.log("Already uploaded a weighInProof.");
+            //   console.log(res.data.firstWeighIn);
+            //   // alert("You already uploaded a weighInProof.");
+            // }
+            //   },
+            // });
+          });
+      });
+
+      function sendMessage(data) {
+        // SEND WEBHOOK UCHAT
+        let sendOnce = true;
+
+        if (sendOnce) {
+          var http = new XMLHttpRequest();
+          var url =
+            "https://www.uchat.com.au/api/iwh/da3cc7950f613b753c10de4b0d075c2a";
+          var content = data;
+          http.open("POST", url, true);
+
+          //Send the proper header information along with the request
+          http.setRequestHeader("Content-type", "application/json");
+
+          console.log(data);
+          http.onreadystatechange = function () {
+            //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+              // alert(http.responseText);
+              showSuccess();
+            }
+          };
+          http.send(JSON.stringify(content));
+
+          generatedUniqueID = "";
+          console.log("Set sendOnce to false");
+          sendOnce = false;
+        }
+      }
+
+      // UPDATE RIGHT BODY VIEW
+      function updateRightBodyViewLink(uCode) {
+        console.log("UCode ID: " + userCode);
+        let getChallengerByID =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+          userCode;
+        let getAllChallengers =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challengers";
+
+        let refChallenger = {
+          firstName: "",
+          lastName: "",
+          emailAddress: "",
+          originalWeight: "",
+          latestWeight: "",
+          lastWeightUpdateDate: "",
+          weightDifference: "",
+          groupId: "",
+          challengeTypeId: "",
+          coachId: "",
+          dateStarted: "",
+          groupRank: "",
+          userVerified: "",
+          proofOfBillingLink: "",
+          userCode: "",
+          selfieLink: "",
+          weightProofLink: "",
+          weighInWeightProof: "",
+          beforeBodyPicture: "",
+          afterBodyPicture: "",
+        };
+
+        $.ajax({
+          url: getChallengerByID,
+          type: "GET",
+          dataType: "json", // added data type
+          crossDomain: true,
+          async: false,
+          format: "json",
+          success: function (res) {
+            console.log(res);
+
+            let weightVal = document.getElementById("input-code-weight").value;
+
+            refChallenger = {
+              rightViewLinkSecond: uCode.url,
+              // firstWeighInImageProofLink: uCode.url,
+              // firstWeighIn: weightVal,
+              // firstName: res.data.firstName,
+              // lastName: res.data.lastName,
+              // age: res.data.age,
+              // sex: res.data.sex,
+              // emailAddress: res.data.emailAddress,
+              // height: res.data.height,
+              // emailAddress: res.data.emailAddress,
+              originalWeight: res.data.weightInfo.originalWeight,
+              latestWeight: res.data.weightInfo.latestWeight,
+              lastWeightUpdateDate: res.data.weightInfo.lastWeightUpdateDate,
+              weightDifference: res.data.weightInfo.weightDifference,
+              // groupId: res.data.groupId,
+              // challengeTypeId: res.data.challengeTypeId,
+              // coachId: res.data.coachId,
+              // dateStarted: res.data.dateStarted,
+              // groupRank: res.data.groupRank,
+              // userVerified: res.data.userVerified,
+              // // proofOfBillingLink: uCode.url,
+              // userCode: res.data.userCode,
+              // selfieLink: res.data.selfieLink,
+              // weightProofLink: res.data.weightProofLink,
+              // weighInWeightProof: "Waiting",
+              // beforeBodyPicture: "Waiting",
+              // afterBodyPicture: "Waiting",
+            };
+
+            console.log(refChallenger);
+            console.log(getChallengerByID);
+            $.ajax({
+              url:
+                "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/update/challenger/" +
+                res.data.userCode,
+              type: "PUT",
+              async: false,
+              data: refChallenger,
+              success: function (data) {
+                console.log("PUT METHOD: " + data.status);
+                sendMessage(uCode);
+              },
+            });
+          },
+        }).responseJSON;
+      }
+
+      // UPDATE LEFT BODY VIEW
+      function updateLeftBodyViewLink(uCode) {
+        console.log("UCode ID: " + userCode);
+        let getChallengerByID =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+          userCode;
+        let getAllChallengers =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challengers";
+
+        let refChallenger = {
+          firstName: "",
+          lastName: "",
+          emailAddress: "",
+          originalWeight: "",
+          latestWeight: "",
+          lastWeightUpdateDate: "",
+          weightDifference: "",
+          groupId: "",
+          challengeTypeId: "",
+          coachId: "",
+          dateStarted: "",
+          groupRank: "",
+          userVerified: "",
+          proofOfBillingLink: "",
+          userCode: "",
+          selfieLink: "",
+          weightProofLink: "",
+          weighInWeightProof: "",
+          beforeBodyPicture: "",
+          afterBodyPicture: "",
+        };
+
+        $.ajax({
+          url: getChallengerByID,
+          type: "GET",
+          dataType: "json", // added data type
+          crossDomain: true,
+          async: false,
+          format: "json",
+          success: function (res) {
+            console.log(res);
+
+            let weightVal = document.getElementById("input-code-weight").value;
+
+            refChallenger = {
+              leftViewLinkSecond: uCode.url,
+              // firstWeighInImageProofLink: uCode.url,
+              // firstWeighIn: weightVal,
+              // firstName: res.data.firstName,
+              // lastName: res.data.lastName,
+              // age: res.data.age,
+              // sex: res.data.sex,
+              // emailAddress: res.data.emailAddress,
+              // height: res.data.height,
+              // emailAddress: res.data.emailAddress,
+              originalWeight: res.data.weightInfo.originalWeight,
+              latestWeight: res.data.weightInfo.latestWeight,
+              lastWeightUpdateDate: res.data.weightInfo.lastWeightUpdateDate,
+              weightDifference: res.data.weightInfo.weightDifference,
+              // groupId: res.data.groupId,
+              // challengeTypeId: res.data.challengeTypeId,
+              // coachId: res.data.coachId,
+              // dateStarted: res.data.dateStarted,
+              // groupRank: res.data.groupRank,
+              // userVerified: res.data.userVerified,
+              // // proofOfBillingLink: uCode.url,
+              // userCode: res.data.userCode,
+              // selfieLink: res.data.selfieLink,
+              // weightProofLink: res.data.weightProofLink,
+              // weighInWeightProof: "Waiting",
+              // beforeBodyPicture: "Waiting",
+              // afterBodyPicture: "Waiting",
+            };
+
+            console.log(refChallenger);
+            console.log(getChallengerByID);
+            $.ajax({
+              url:
+                "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/update/challenger/" +
+                res.data.userCode,
+              type: "PUT",
+              async: false,
+              data: refChallenger,
+              success: function (data) {
+                console.log("PUT METHOD: " + data.status);
+                // sendMessage(uCode);
+                processValueUploadRightIMAGE();
+              },
+            });
+          },
+        }).responseJSON;
+      }
+
+      // UPDATE PROOF FOR FRONT BODY VIEW
+      function updateFrontBodyViewLink(uCode) {
+        console.log("UCode ID: " + userCode);
+        let getChallengerByID =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+          userCode;
+        let getAllChallengers =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challengers";
+
+        let refChallenger = {
+          firstName: "",
+          lastName: "",
+          emailAddress: "",
+          originalWeight: "",
+          latestWeight: "",
+          lastWeightUpdateDate: "",
+          weightDifference: "",
+          groupId: "",
+          challengeTypeId: "",
+          coachId: "",
+          dateStarted: "",
+          groupRank: "",
+          userVerified: "",
+          proofOfBillingLink: "",
+          userCode: "",
+          selfieLink: "",
+          weightProofLink: "",
+          weighInWeightProof: "",
+          beforeBodyPicture: "",
+          afterBodyPicture: "",
+        };
+
+        $.ajax({
+          url: getChallengerByID,
+          type: "GET",
+          dataType: "json", // added data type
+          crossDomain: true,
+          async: false,
+          format: "json",
+          success: function (res) {
+            console.log(res);
+
+            let weightVal = document.getElementById("input-code-weight").value;
+
+            refChallenger = {
+              frontViewLinkSecond: uCode.url,
+              // firstWeighInImageProofLink: uCode.url,
+              // firstWeighIn: weightVal,
+              // firstName: res.data.firstName,
+              // lastName: res.data.lastName,
+              // age: res.data.age,
+              // sex: res.data.sex,
+              // emailAddress: res.data.emailAddress,
+              // height: res.data.height,
+              // emailAddress: res.data.emailAddress,
+              originalWeight: res.data.weightInfo.originalWeight,
+              latestWeight: res.data.weightInfo.latestWeight,
+              lastWeightUpdateDate: res.data.weightInfo.lastWeightUpdateDate,
+              weightDifference: res.data.weightInfo.weightDifference,
+              // groupId: res.data.groupId,
+              // challengeTypeId: res.data.challengeTypeId,
+              // coachId: res.data.coachId,
+              // dateStarted: res.data.dateStarted,
+              // groupRank: res.data.groupRank,
+              // userVerified: res.data.userVerified,
+              // // proofOfBillingLink: uCode.url,
+              // userCode: res.data.userCode,
+              // selfieLink: res.data.selfieLink,
+              // weightProofLink: res.data.weightProofLink,
+              // weighInWeightProof: "Waiting",
+              // beforeBodyPicture: "Waiting",
+              // afterBodyPicture: "Waiting",
+            };
+
+            console.log(refChallenger);
+            console.log(getChallengerByID);
+            $.ajax({
+              url:
+                "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/update/challenger/" +
+                res.data.userCode,
+              type: "PUT",
+              async: false,
+              data: refChallenger,
+              success: function (data) {
+                console.log("PUT METHOD: " + data.status);
+                // sendMessage(uCode);
+                processValueUploadLeftIMAGE();
+              },
+            });
+          },
+        }).responseJSON;
+      }
+
+      // UPDATE PROOF FOR WEIGH IN VIDEO
+      function updateProofOfWeighIn(uCode) {
+        console.log("UCode ID: " + userCode);
+        let getChallengerByID =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challenger/" +
+          userCode;
+        let getAllChallengers =
+          "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/challengers";
+
+        let refChallenger = {
+          firstName: "",
+          lastName: "",
+          emailAddress: "",
+          originalWeight: "",
+          latestWeight: "",
+          lastWeightUpdateDate: "",
+          weightDifference: "",
+          groupId: "",
+          challengeTypeId: "",
+          coachId: "",
+          dateStarted: "",
+          groupRank: "",
+          userVerified: "",
+          proofOfBillingLink: "",
+          userCode: "",
+          selfieLink: "",
+          weightProofLink: "",
+          weighInWeightProof: "",
+          beforeBodyPicture: "",
+          afterBodyPicture: "",
+        };
+
+        $.ajax({
+          url: getChallengerByID,
+          type: "GET",
+          dataType: "json", // added data type
+          crossDomain: true,
+          async: false,
+          format: "json",
+          success: function (res) {
+            console.log(res);
+
+            let weightVal = document.getElementById("input-code-weight").value;
+
+            refChallenger = {
+              secondWeighInImageProofLink: uCode.url,
+              secondWeighIn: weightVal,
+              // firstName: res.data.firstName,
+              // lastName: res.data.lastName,
+              // age: res.data.age,
+              // sex: res.data.sex,
+              // emailAddress: res.data.emailAddress,
+              // height: res.data.height,
+              // emailAddress: res.data.emailAddress,
+              originalWeight: res.data.weightInfo.originalWeight,
+              latestWeight: res.data.weightInfo.latestWeight,
+              lastWeightUpdateDate: res.data.weightInfo.lastWeightUpdateDate,
+              weightDifference: res.data.weightInfo.weightDifference,
+              // groupId: res.data.groupId,
+              // challengeTypeId: res.data.challengeTypeId,
+              // coachId: res.data.coachId,
+              // dateStarted: res.data.dateStarted,
+              // groupRank: res.data.groupRank,
+              // userVerified: res.data.userVerified,
+              // // proofOfBillingLink: uCode.url,
+              // userCode: res.data.userCode,
+              // selfieLink: res.data.selfieLink,
+              // weightProofLink: res.data.weightProofLink,
+              // weighInWeightProof: "Waiting",
+              // beforeBodyPicture: "Waiting",
+              // afterBodyPicture: "Waiting",
+            };
+
+            console.log(refChallenger);
+            console.log(getChallengerByID);
+            $.ajax({
+              url:
+                "https://us-central1-chatbuddy-herballife.cloudfunctions.net/app/api/v1/update/challenger/" +
+                res.data.userCode,
+              type: "PUT",
+              async: false,
+              data: refChallenger,
+              success: function (data) {
+                console.log("PUT METHOD: " + data.status);
+                processValueUploadFrontIMAGE();
+                // sendMessage(uCode);
+              },
+            });
+          },
+        }).responseJSON;
+      }
+
+      function showSuccess() {
+        let appDiv = document.querySelector("#app");
+        let succDiv = document.querySelector(".sent-success-main");
+
+        appDiv.classList.remove("visible");
+        appDiv.classList.add("hidden");
+
+        succDiv.classList.remove("hidden");
+        succDiv.classList.add("visible");
+
+        let spinnerDiv = document.querySelector(".spinner-loadingStatus");
+        spinnerDiv.classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>
